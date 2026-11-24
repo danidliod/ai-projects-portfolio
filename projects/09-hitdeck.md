@@ -1,36 +1,36 @@
-# HitDeck · סורק קלפים למשחק מוזיקה
+# HitDeck — a card scanner for a music guessing game
 
-**🟢 ב-App Store · [להורדה](https://apps.apple.com/app/id6801653040) · [דף נחיתה](https://danidliod.github.io/shnaton-support/)**
+**🟢 On the App Store · [Download](https://apps.apple.com/app/id6801653040) · [Landing page](https://danidliod.github.io/shnaton-support/)**
 
-אפליקציית iOS שסורקת את קוד ה-QR על קלפי משחק ניחוש שירים (כולל המהדורה הישראלית) ומנגנת את השיר דרך Apple Music — במקום לדרוש Spotify Premium.
+An iOS app that scans the QR code on the cards of a song-guessing party game (including the Israeli edition) and plays the song through Apple Music — instead of requiring Spotify Premium.
 
-<!-- MEDIA: GIF — סריקת קלף → השיר מתנגן -->
+<!-- MEDIA: GIF — scan a card → the song plays -->
 
 | | |
 |---|---|
-| **פלטפורמה** | iOS (SwiftUI) |
-| **התחלה** | אוגוסט 2026 |
-| **מודל** | חינם + שדרוג פרימיום ב-StoreKit |
+| **Platform** | iOS (SwiftUI) |
+| **Started** | August 2026 |
+| **Model** | Free + a premium upgrade via StoreKit |
 
-## הבעיה
-הקלפים מכילים קישור, אבל הקישור עצמו לא מוביל לשיר. הפענוח קורה רק בתוך האפליקציה הרשמית, שעובדת עם Spotify בלבד.
+## The problem
+The cards carry a link, but the link itself doesn't lead to the song. Resolution only happens inside the official app, which works with Spotify only.
 
-## הפתרון — שרשרת פענוח
+## The solution — a resolution chain
 
 ```mermaid
 flowchart TB
-  QR[סריקת QR] --> P[פירוק הכתובת<br/>מדינה · מהדורה · מספר קלף]
-  P --> DB[מאגר המהדורות הציבורי<br/>מהדורה+קלף → מזהה שיר]
-  DB --> META[מטא-דאטה ציבורית<br/>שם · אמן · שנה]
-  META --> MK[MusicKit — חיפוש + ניקוד התאמה]
+  QR[Scan the QR code] --> P[Parse the URL<br/>country · edition · card number]
+  P --> DB[Public editions database<br/>edition + card → track ID]
+  DB --> META[Public metadata<br/>title · artist · year]
+  META --> MK[MusicKit — search + match scoring]
   MK --> PLAY[ApplicationMusicPlayer]
 ```
 
-## טכנולוגיות
-Swift · SwiftUI · AVFoundation (סורק QR) · MusicKit · StoreKit (פרימיום) · XcodeGen
+## Technologies
+Swift · SwiftUI · AVFoundation (QR scanner) · MusicKit · StoreKit (premium) · XcodeGen
 
-## מה מעניין כאן
-- **מחקר לפני קוד:** "שלב 0" שבדק ופסל דרכים (הפניות של האתר הרשמי) עד שנמצאה שרשרת שעובדת בלי שום אימות.
-- **התאמת שירים** בין שני קטלוגים שונים עם פונקציית ניקוד.
-- **השקה נקייה מבחינת סימן מסחרי:** השם המסחרי של המשחק לא מופיע בשם האפליקציה, במילות המפתח או בכותרת — רק תיאור תאימות.
-- **ערכת השקה** לקהילות משחקי קופסה, בגילוי נאות שאני המפתח/ת.
+## What's interesting here
+- **Research before code:** a "phase 0" that tested and ruled out approaches (the official site's redirects) until it found a chain that works with no authentication at all.
+- **Matching songs** between two different catalogues with a scoring function.
+- **A trademark-clean launch:** the game's brand name doesn't appear in the app name, keywords or store title — only a statement of compatibility.
+- **A launch kit** for board-game communities, with full disclosure that I'm the developer.

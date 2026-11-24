@@ -1,45 +1,45 @@
-# Mosquito Radar · אפליקציית היתושים הכנה
+# Mosquito Radar — the honest mosquito app
 
-**🟡 TestFlight · לפני הגשה ל-App Store**
+**🟡 TestFlight · before App Store submission**
 
-אפליקציית iOS נייטיב שעושה בדיוק את מה שטלפון באמת יכול לעשות מול יתושים — ואומרת את האמת על השאר. בלי "דוחה אולטרסאונד" ובלי "פנס שמפתה".
+A native iOS app that does exactly what a phone can genuinely do about mosquitoes — and tells the truth about the rest. No "ultrasonic repellent" and no "luring flashlight".
 
-<!-- MEDIA: מסך Night Watch + האזעקה האדומה (סימולטור) -->
+<!-- MEDIA: Night Watch screen + the crimson alarm (simulator) -->
 
 | | |
 |---|---|
-| **פלטפורמה** | iOS נייטיב (SwiftUI) |
-| **שפות** | 7: אנגלית, ספרדית, פורטוגזית, צרפתית, עברית, הינדי, אינדונזית |
-| **רשת** | אפס בקשות רשת — הכול על המכשיר |
-| **מצב** | בילד ב-TestFlight, הסכם תשלומים חתום, חבילת App Store מוכנה |
+| **Platform** | Native iOS (SwiftUI) |
+| **Languages** | 7: English, Spanish, Portuguese, French, Hebrew, Hindi, Indonesian |
+| **Network** | Zero network requests — everything stays on the device |
+| **Status** | Build on TestFlight, paid-apps agreement signed, App Store pack ready |
 
-## מה יש באפליקציה
-- **Night Watch** — הטלפון ליד הכרית ומקשיב. כשרחש הכנפיים של **נקבה** (≈350–600 Hz, עם "רעד" שאופייני רק לחרק חי) נכנס לטווח של ~10 ס"מ מהמיקרופון — אזעקה מלאה, צליל ורטט. עובד במסך נעול כל הלילה ומדווח בכנות על פערי כיסוי.
-- **Hunt Assist** — זום מצלמה ופנס לבדוק נקודות חשודות על הקיר.
-- **Protection Plan** — צ'קליסט לפני שינה של אמצעים עם ראיות אמיתיות, ושאלה על עקיצות בבוקר → ניתוח "מה עובד בחדר שלך".
-- **What's That Buzz?** — מכוונים לזמזום ומקבלים תשובה כנה: מכונה / אולי יתוש / לא עוקץ.
-- **Know Your Enemy** — המדע: למה 10 ס"מ, למה אור לא מפתה.
+## What's in the app
+- **Night Watch** — the phone lies by your pillow and listens. When a **female** mosquito's wingbeat (≈350–600 Hz, with the jitter only a live insect has) enters the microphone's ~10 cm range — a full-screen alarm, sound and haptics. It works with the screen locked all night and honestly reports coverage gaps.
+- **Hunt Assist** — camera zoom and torch to inspect suspicious dots on the wall.
+- **Protection Plan** — a pre-sleep checklist of measures with real evidence, and a morning bite question → an analysis of "what works in your room".
+- **What's That Buzz?** — point the phone at a whine and get an honest verdict: machine / could be a mosquito / not a biter.
+- **Know Your Enemy** — the science: why 10 cm, why light doesn't lure them.
 
-## ארכיטקטורה
+## Architecture
 
 ```mermaid
 flowchart LR
-  MIC[מיקרופון — AVAudioEngine] --> FFT[FFT + רצפת רעש אדפטיבית]
-  FFT --> DET[גלאי צר-פס + הרמוניות<br/>שער jitter של f0]
-  DET --> AL[אזעקה: מסך · צליל · Haptics]
-  DET --> LOG[(יומן לילה — JSON מקומי)]
-  LOG --> AN[ניתוח "מה עובד"]
-  SK[StoreKit 2 — רכישה חד-פעמית] --> AN
-  REF[TypeScript reference + vitest<br/>כיול ה-DSP] -. אותם קבועים .-> DET
+  MIC[Microphone — AVAudioEngine] --> FFT[FFT + adaptive noise floor]
+  FFT --> DET[Narrowband + harmonic detector<br/>f0 jitter gate]
+  DET --> AL[Alarm: screen · sound · haptics]
+  DET --> LOG[(Night log — local JSON)]
+  LOG --> AN["What works" analysis]
+  SK[StoreKit 2 — one-time purchase] --> AN
+  REF[TypeScript reference + vitest<br/>DSP calibration] -. same constants .-> DET
 ```
 
-## טכנולוגיות
-Swift · SwiftUI · AVAudioEngine · DSP (FFT) ב-Swift package נפרד שנבדק גם על Linux · StoreKit 2 · XCTest · TypeScript + Vitest כמימוש ייחוס · XcodeGen · 7 שפות
+## Technologies
+Swift · SwiftUI · AVAudioEngine · DSP (FFT) in a separate Swift package that is also tested on Linux · StoreKit 2 · XCTest · TypeScript + Vitest as a reference implementation · XcodeGen · 7 languages
 
-## החלטות מוצר
-- **פרטיות מוחלטת:** אפס בקשות רשת. האודיו מנותח בזמן אמת ולא נשמר.
-- **כנות כמיצוב:** מחקר היתכנות הראה שאפליקציות "דוחה אולטרסאונד" הן הונאה מתועדת (סקירת Cochrane, קנסות FTC) — אז זה בדיוק מה שהאפליקציה לא עושה.
-- **מודל עסקי הוגן:** 3 לילות מלאים בחינם, אחר כך רכישה חד-פעמית. הזיהוי והאזעקה אף פעם לא ננעלים.
+## Product decisions
+- **Total privacy:** zero network requests. Audio is analysed live and never recorded.
+- **Honesty as positioning:** a feasibility study showed that "ultrasonic repellent" apps are documented fraud (a Cochrane review, FTC fines) — so that is exactly what this app doesn't do.
+- **A fair business model:** 3 full nights free, then a one-time purchase. Detection and the alarm are never locked.
 
-## איפה AI נכנס
-סוכן קוד בנה את האפליקציה ואת מנוע ה-DSP, וכייל אותו אמפירית דרך מימוש ייחוס ב-TypeScript עם בדיקות — כך שאפשר לבדוק את האלגוריתם בלי מכשיר.
+## Where AI is used
+A coding agent built the app and the DSP engine, and calibrated it empirically through a TypeScript reference implementation with tests — so the algorithm can be tested without a device.

@@ -1,83 +1,83 @@
-# השנה שלנו (FamiSync) · מתכנן שנתי למשפחה
+# Our Year (FamiSync) — a family year planner
 
-**🟢 חי למשפחה ראשונה · בבנייה מאז אוקטובר 2026**
+**🟢 Live for a first family · in development since October 2026**
 
-> כל השנה של המשפחה — מראש, במקום אחד, בלי להקליד. מהגן ועד סבתא, כולם יודעים מה קורה.
+> The whole family year — in advance, in one place, without typing. From kindergarten to grandma, everyone knows what's happening.
 
-<!-- MEDIA: צילומי מסך עם המשפחה הבדויה "משפחת כהן" בלבד -->
+<!-- MEDIA: screenshots with the fictional "Cohen family" only -->
 
 | | |
 |---|---|
-| **היקף** | ~660 קומיטים ו-PRs בפחות מחודשיים · 564 קבצי בדיקות · 148 מיגרציות · 88 רשומות החלטה (ADR) |
-| **מחקר** | 13 מסמכי מחקר: מתחרים, שפות, לוחות שנה לפי מדינה ומסורת, תורנויות, ציונים, מוטיבציה ומערכות בית ספר |
-| **שפות** | עברית (מקור), אנגלית בהשקה, ועוד שפות כנתונים |
+| **Scale** | ~660 commits and PRs in under two months · 564 test files · 148 migrations · 88 decision records (ADRs) |
+| **Research** | 13 research documents: competitors, languages, calendars by country and tradition, chores, grades, motivation and school systems |
+| **Languages** | Hebrew (source), English at launch, more languages as data |
 
-## הבעיה
-יומנים משפחתיים (Cozi, TimeTree, FamilyWall, GroupCal) דורשים שמישהו יקליד הכול. מסכי מטבח (Skylight, Hearth) יקרים ולא בעברית. עוזרי AI "צלמו ונכניס" קיימים, אבל התלונה הקבועה היא "צריך לבדוק שוב שזה באמת נכנס". **אף מוצר לא מכיר את השנה הישראלית** — לוח משרד החינוך, בגרויות, ערבי חג, טסט לרכב — וכולם בנויים סביב מייל, בזמן שהמשפחה הישראלית חיה בווטסאפ.
+## The problem
+Family calendars (Cozi, TimeTree, FamilyWall, GroupCal) need someone to type everything in. Kitchen displays (Skylight, Hearth) are expensive and not in Hebrew. "Snap it and we'll add it" AI assistants exist, but the standard complaint is "I have to check again that it really went in". **No product knows the Israeli year** — the Ministry of Education calendar, matriculation exams, holiday eves, the annual car test — and all of them are built around email, while Israeli families live on WhatsApp.
 
-## מה המוצר עושה
+## What the product does
 
-**טוען מראש את כל השנה**
-- חופשות משרד החינוך לכל ילד לפי מגזר ושלב, חגים (כולל תאריך עברי), ימי הולדת, חידושי דרכון, רישיון, טסט וביטוח.
-- **הלוח שהמשפחה בוחרת:** לוח החגים הלאומי כברירת מחדל, לוחות של קהילות אחרות או של יעד טיול כנתונים — **בלי לשאול אף פעם על דת**.
+**Loads the whole year in advance**
+- School holidays for each child by sector and stage, holidays (including Hebrew dates), birthdays, passport, licence, car test and insurance renewals.
+- **The calendar the family chooses:** the national holiday calendar by default, other communities' calendars or a trip destination's as data — **without ever asking about religion**.
 
-**קליטה בלי הקלדה**
-- קורא את קבוצות הווטסאפ שהבעלים בחר — **בהקשר של השיחה ושל היומן**, לא הודעה בודדת.
-- **"מה שהקוד יכול להוכיח — נכנס; כל השאר — הצעה":** שינוי ודאי נכנס אוטומטית, מסומן "נוסף אוטומטית · מהודעה של X" עם ביטול בנגיעה. כל דבר לא ודאי הולך לתור "לאישור" עם שאלה מדויקת אחת.
-- טקסט, צילום, קובץ או הודעה קולית — אותה צנרת.
+**Capture without typing**
+- Reads the WhatsApp groups the owner selected — **in the context of the conversation and the calendar**, not one message at a time.
+- **"What code can prove goes in; everything else is a proposal":** a certain change is applied automatically, marked "added automatically · from X's message" with one-tap undo. Anything uncertain goes to a "to approve" queue with one precise question.
+- Text, photo, file or voice note — the same pipeline.
 
-**תובנות ותזכורות**
-- **חוקים דטרמיניסטיים** שרצים כל לילה: התנגשויות, "חור" בהשגחה על הילדים, דרכון שפג לפני טיסה, נסיעה שמתנגשת בזמן תפוס ביומן.
-- **כל אחד בערוץ שלו ובשפה שלו:** push להורים, וואטסאפ לסבים, "היום שלי" לילדים צעירים. "מחר אצלנו" ו"השבוע שלנו" לקבוצת המשפחה.
-- **שעות שקטות** בשבת ובחגים, לפי מה שהמשפחה בחרה.
+**Insights and reminders**
+- **Deterministic rules** that run every night: conflicts, gaps in childcare, a passport expiring before a flight, a drive that clashes with busy time in the calendar.
+- **Everyone on their own channel and in their own language:** push for parents, WhatsApp for grandparents, "My day" for young children. "Tomorrow at home" and "Our week" for the family group.
+- **Quiet hours** on Shabbat and holidays, as the family chose.
 
-**מודולים למשפחה**
-- **תורנויות בית:** מתכנן הוגן (קוד, לא מודל) שמחלק לפי נוכחות ומאמץ, "הילדים קודם". בלי השוואות, בלי "פספסת", בלי טבלאות דירוג.
-- **ציונים ומבחנים:** כל ילד מול ההיסטוריה של עצמו בלבד; ציון לא יוצא אף פעם מהאפליקציה (לא בהתראה, לא בווטסאפ).
-- **מטרה משפחתית וכוכבים** — על מאמץ, אף פעם לא על ציונים.
-- **ספרי לימוד ושיעורי בית:** תוכן העניינים של הספר, ושורת שיעורי בית שמותאמת לפרק לפי מספרי העמודים — בקוד, לא במודל.
-- **סנכרון ליומן Google** של כל הורה (כיוון אחד), וזמנים תפוסים בחזרה — בלי כותרות.
-- **מצבי תצוגה:** הורים, ילד (9), סבתא (80) — כל אחד בשפה ובאורך משפט שמתאימים לו.
+**Family modules**
+- **Household chores:** a fair planner (code, not a model) that splits by presence and effort, "children first". No comparisons, no "you missed it", no leaderboards.
+- **Grades and tests:** each child compared only with their own history; a score never leaves the app (not in a notification, not on WhatsApp).
+- **A family goal and stars** — for effort, never for grades.
+- **Textbooks and homework:** the book's table of contents, and a homework line matched to a chapter by page numbers — in code, not by a model.
+- **Sync to each parent's Google Calendar** (one way), with busy times coming back — without titles.
+- **Display modes:** parents, child (9), grandma (80) — each with the language and sentence length that suits them.
 
-## ארכיטקטורה
+## Architecture
 
 ```mermaid
 flowchart LR
-  WA[קבוצות ווטסאפ נבחרות] --> BR[WhatsApp bridge<br/>מכשיר מקושר]
-  U[הורים · ילדים · סבים] --> WEB[Next.js web app · PWA]
-  BR --> DB[(Supabase Postgres<br/>RLS · כתיבה רק דרך RPC)]
+  WA[Selected WhatsApp groups] --> BR[WhatsApp bridge<br/>linked device]
+  U[Parents · kids · grandparents] --> WEB[Next.js web app · PWA]
+  BR --> DB[(Supabase Postgres<br/>RLS · writes only through RPCs)]
   WEB --> DB
-  W[Worker — לולאה כל 60 שנ׳] --> DB
-  W --> X["LLM מחזיר מועמדים בלבד<br/>(JSON קשיח, בלי כלים)"]
-  X --> DEC["decide() בקוד:<br/>להחיל עם ביטול / להציע לאישור"]
+  W[Worker — loop every 60 s] --> DB
+  W --> X["LLM returns candidates only<br/>(strict JSON, no tools)"]
+  X --> DEC["decide() in code:<br/>apply with undo / propose for approval"]
   DEC --> DB
-  W --> R[חוקים לילתיים<br/>התנגשויות · השגחה · תוקף]
+  W --> R[Nightly rules<br/>conflicts · childcare · expiry]
   W --> GC[Google Calendar]
-  W --> OUT[תיבת דואר יוצא] --> BR
+  W --> OUT[Outbox] --> BR
 ```
 
-## טכנולוגיות
-Next.js 16 · React 19 · TypeScript strict · Tailwind 4 · shadcn/ui · next-intl · TanStack Query · Supabase (Postgres, Auth, RLS) · Worker ב-TypeScript · גשר ווטסאפ (Baileys) · **Claude** (Haiku / Sonnet) לחילוץ ואימות · Hebcal · Google Calendar API · Resend · Docker Compose · Cloudflare Tunnel · Vitest · Playwright (3 מכשירים) · PGlite לבדיקות סכמה
+## Technologies
+Next.js 16 · React 19 · TypeScript strict · Tailwind 4 · shadcn/ui · next-intl · TanStack Query · Supabase (Postgres, Auth, RLS) · TypeScript worker · WhatsApp bridge (Baileys) · **Claude** (Haiku / Sonnet) for extraction and verification · Hebcal · Google Calendar API · Resend · Docker Compose · Cloudflare Tunnel · Vitest · Playwright (3 devices) · PGlite for schema tests
 
 ## Deployment
-- שלושה קונטיינרים (web, worker, whatsapp-bridge) ב-Docker Compose על שרת ARM קטן, מאחורי Cloudflare.
-- פריסה בסקריפט: בדיקות → build → העלאה → restart → בדיקת בריאות; התמונה הקודמת נשמרת ל-rollback מיידי.
-- **לוגים בלי תוכן** — רק מזהים, מצבים ומספרים. לכל שלב בלולאה deadline משלו.
-- מיגרציות נוצרות מתוך מסמך מודל הנתונים, ונבדקות מול ה-DB החי.
+- Three containers (web, worker, WhatsApp bridge) on Docker Compose on a small ARM server, behind Cloudflare.
+- Scripted deploy: tests → build → upload → restart → health check; the previous image is kept for instant rollback.
+- **Logs without content** — only IDs, states and counts. Every step of the loop has its own deadline.
+- Migrations are generated from the data-model document and checked against the live database.
 
-## איפה AI נכנס — ואיפה בכוונה לא
-- **המודל אף פעם לא מחליט.** הוא מחזיר מועמדים; פונקציה טהורה ומגורסת בקוד מחליטה מה נכנס.
-- **Evals כשער:** כל שינוי בפרומפט, במודל או בסכמה חייב לעבור — דיוק תאריכים ≥95% לכל שפה, recall ≥90%, אפס החלות שגויות.
-- **מה לא מגיע למודל:** תמונות של מסמכים מזהים, ציונים, נתוני מוטיבציה, דפי שיעורי בית, ורוב מה שילדים כותבים.
-- **מחקר:** ~20 מוצרים נסקרו כבסיס למיצוב — "אמינות וייצוא חשובים יותר מעוד פיצ'ר".
+## Where AI is used — and where it deliberately isn't
+- **The model never decides.** It returns candidates; a pure, versioned function in code decides what goes in.
+- **Evals as a gate:** every prompt, model or schema change must pass — date accuracy ≥95% per language, recall ≥90%, zero wrong auto-applies.
+- **What never reaches the model:** photos of ID documents, grades, motivation data, homework pages, and most of what children write.
+- **Research:** ~20 products reviewed as the basis for positioning — "reliability and export matter more than another feature".
 
-## אתגרים ופתרונות
-- **אמון:** כל קליטה אוטומטית מסומנת וניתנת לביטול, וכל השאר הוא הצעה.
-- **פרטיות ילדים:** קריאת ציונים מוגבלת לפי גיל, נער מתבגר רואה ראשון, ואין ציונים מחוץ לאפליקציה.
-- **שפה ומגדר:** כל משפט הוא פונקציה של הנמען — שפה ומין דקדוקי, בלי לוכסנים, עם בידוד כיוון לכל מספר וטלפון.
-- **ביצועים:** תקרת בקשות לכל לחיצה, שנבדקת ב-E2E ויכולה רק לרדת.
+## Challenges and solutions
+- **Trust:** every automatic capture is marked and undoable; everything else is a proposal.
+- **Children's privacy:** reading grades is limited by age, a teenager sees first, and grades never leave the app.
+- **Language and gender:** every sentence is a function of its recipient — language and grammatical gender, no slashes, with direction isolation for every number and phone.
+- **Performance:** a per-tap request ceiling, checked in end-to-end tests, that can only go down.
 
-## מדיה להוסיף
-- [ ] מסך שנה / חודש עם המשפחה הבדויה
-- [ ] GIF: צילום חוזר מבית הספר → הצעה → אישור
-- [ ] מסך "מצב סבתא" ו"היום שלי" לילד
+## Media to add
+- [ ] Year / month screen with the fictional family
+- [ ] GIF: a school notice photo → proposal → approval
+- [ ] "Grandma mode" and a child's "My day" screens

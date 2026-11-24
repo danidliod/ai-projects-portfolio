@@ -1,45 +1,45 @@
-# App Growth Kit · קידום אורגני שמורץ ע"י סוכן
+# App Growth Kit — organic promotion run by an agent
 
-**🟢 בשימוש · קוד פתוח: [github.com/danidliod/app-growth-kit](https://github.com/danidliod/app-growth-kit)**
+**🟢 In use · open source: [github.com/danidliod/app-growth-kit](https://github.com/danidliod/app-growth-kit)**
 
-ערכה שנבנתה תוך כדי קידום משחק לימודי לילדים בלי תקציב פרסום: Claude Code מריץ "סבב" קבוע כל שעה בדפדפן — תיבת הודעות → פוסטים מתוזמנים → פניות ליוצרי תוכן ולקבוצות → מדידה → יומן.
+A kit built while promoting a kids' learning game with no ad budget: Claude Code runs a fixed "round" every hour in the browser — inbox → scheduled posts → creator and group outreach → measurement → log.
 
-<!-- MEDIA: GIF של סבב שעתי בדפדפן + דוגמה ל-3 רילס שנוצרו אוטומטית -->
+<!-- MEDIA: GIF of an hourly round in the browser + 3 auto-generated reels -->
 
 | | |
 |---|---|
-| **קוד** | פתוח — זה הפרויקט היחיד כאן שהקוד שלו פומבי |
-| **נולד מ** | שבוע של קידום [מגדל הערפל](01-tower-of-mist-game.md) |
-| **המשך** | הלקחים הפכו למוצר [Growth Engine](04-growth-engine.md) |
+| **Code** | Public — the only project here whose code is open |
+| **Born from** | A week of promoting [Tower of Mist](01-tower-of-mist-game.md) |
+| **Followed by** | The lessons became the [Growth Engine](04-growth-engine.md) product |
 
-## מה בפנים
-- **Playbook** — השיטה המלאה, כולל פרק לינקדאין.
-- **פרומפט לסבב שעתי** + 4 Skills ל-Claude Code: `growth-round`, `reel-factory`, `sales-check`, `linkedin-drafts`.
-- **מפעל רילס** (Python): קליפ × הוק × שפה × פורמט (9:16 / 4:5 / 1:1), חידון עם ספירה לאחור, כרטיס מחיר, ולינק utm לכל וריאנט.
-- **מדידת מכירות** מ-App Store Connect: הורדות מול רכישות בתשלום (בלי לספור קודי פרומו).
-- **מעקב דף נחיתה** — אירועי ביקור ב-Supabase.
+## What's inside
+- **Playbook** — the full method, including a LinkedIn chapter.
+- **An hourly-round prompt** + 4 Claude Code skills: `growth-round`, `reel-factory`, `sales-check`, `linkedin-drafts`.
+- **Reel factory** (Python): clip × hook × language × format (9:16 / 4:5 / 1:1), a quiz with a countdown, a price card, and a UTM link per variant.
+- **Sales measurement** from App Store Connect: downloads versus paid purchases (promo codes not counted).
+- **Landing-page tracking** — visit events in Supabase.
 
-## הזרימה
+## The loop
 
 ```mermaid
 flowchart LR
-  L["/loop 1h"] --> I[תיבת הודעות]
-  I --> P[פרסום רילס מתוזמן]
-  P --> O[פניות ליוצרים וקבוצות]
-  O --> M[מדידה: utm · דף נחיתה · מכירות]
-  M --> LOG[יומן החלטות עם שעון אמיתי]
+  L["/loop 1h"] --> I[Inbox]
+  I --> P[Publish scheduled reels]
+  P --> O[Creator and group outreach]
+  O --> M[Measure: UTM · landing page · sales]
+  M --> LOG[Decision log with real timestamps]
   LOG --> L
   RF[reel_factory.py] --> P
 ```
 
-## לקחים במספרים אמיתיים (שבוע ראשון)
-- הורדות הגיעו, רכישות עוד לא — ולכן חשוב להבדיל בין הורדה, פרומו ותשלום.
-- רוב המבקרים בדף הנחיתה הגיעו ממחשב → נוסף QR ליד הכפתור.
-- רילס בעמוד פייסבוק קיבלו מאות צפיות כשפורסמו בקצב קבוע.
-- **מעקות שנולדו מטעויות אמיתיות:** חותמת זמן אמיתית ביומן, בדיקה שהדף החי הוא שלנו לפני מדידה, אימות שהודעה באמת נשלחה.
+## Lessons in real numbers (first week)
+- Downloads came, purchases didn't yet — so it matters to separate downloads, promo codes and payments.
+- Most landing-page visitors came from desktop → a QR code was added next to the button.
+- Facebook page reels got hundreds of views when posted at a steady pace.
+- **Guardrails born from real mistakes:** real timestamps in the log, checking the live page is ours before measuring, and verifying a message was actually sent.
 
-## טכנולוגיות
-Claude Code (skills, loop, הפעלת Chrome) · Python (ffmpeg) · App Store Connect API · Supabase · utm tracking
+## Technologies
+Claude Code (skills, loop, Chrome control) · Python (ffmpeg) · App Store Connect API · Supabase · UTM tracking
 
-## עיקרון מרכזי
-**הסוכן מכין, הבעלים מאשר:** כל שינוי בדף החנות, בדף הנחיתה או במחיר — רק אחרי אישור, עם תאריך ביומן. בלינקדאין — טיוטות בלבד.
+## Core principle
+**The agent prepares, the owner approves:** any change to the store page, landing page or price happens only after approval, with a date in the log. On LinkedIn — drafts only.

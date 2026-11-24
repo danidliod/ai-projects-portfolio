@@ -1,71 +1,71 @@
-# Growth Engine · מערכת שיווק לארגונים
+# Growth Engine — a marketing platform for organisations
 
-**🟢 באוויר עם ארגון הדגמה (sandbox) · 🟡 לפני חיבור ספקי שליחה חיים**
+**🟢 Live with a demo organisation (sandbox) · 🟡 before connecting live sending providers**
 
-> משווק מחבר את המערכות שלו, מגדיר מסעות שיווק, מקבל לידים ומדבר איתם — פשוט מספיק לאנשי שיווק לא טכניים. תוכן שנכתב, נבדק ומשתפר לבד, תחת שליטת האדם.
+> A marketer connects their systems, sets up marketing journeys, gets leads and talks to them — simple enough for non-technical marketers. Content that is written, checked and improves on its own, under human control.
 
-<!-- MEDIA: צילום תור האישור + דוח קמפיין עם lift + דף נחיתה עם A/B -->
+<!-- MEDIA: review queue + campaign report with lift + a landing page with A/B test -->
 
 | | |
 |---|---|
-| **התחלה** | נובמבר 2026, כהמשך לקידום של מגדל הערפל |
-| **היקף** | 30 PRs בשבוע הראשון · 36+ בדיקות, כולל Postgres אמיתי ובידוד בין ארגונים |
-| **מצב** | אפליקציה חיה ב-Vercel, cron כל 10 דקות, ארגון הדגמה בעברית |
+| **Started** | November 2026, as a follow-up to promoting Tower of Mist |
+| **Scale** | 30 PRs in the first week · 36+ tests, including real Postgres and tenant isolation |
+| **Status** | Live app on Vercel, cron every 10 minutes, a Hebrew demo organisation |
 
-## למה זה נבנה
-בקידום של "מגדל הערפל" למדנו: רק טענות אמיתיות, מדידה של משלמים ולא של לייקים, ועצירה באזהרה הראשונה. Growth Engine הופך את הלקחים האלה למוצר רב-ארגוני (multi-tenant).
+## Why it was built
+Promoting Tower of Mist taught us: only true claims, measure paying users rather than likes, and stop at the first warning. Growth Engine turns those lessons into a multi-tenant product.
 
-## מה המערכת עושה
-| צורך | הפתרון |
+## What it does
+| Need | Solution |
 |---|---|
-| התאמה לתחום | **8 תבניות** (אפליקציית ילדים, מרפאה, איקומרס, B2B, עמותה, נדל"ן, קורסים, מסעדה) עם קול, ערוצים ואיסורים רגולטוריים |
-| כתיבה בכמה שפות | המודל כותב כמה וריאנטים לכל ערוץ×שפה, כל אחד מזווית אחרת, ב-JSON מובנה |
-| התאמה למדיה | חוקים לכל ערוץ: מייל (נושא, גוף, הסרה), SMS (ספירת מקטעים GSM/UCS-2, שורת הסרה), וואטסאפ (תבנית מאושרת) |
-| **מניעת שגיאות** | בדיקות דטרמיניסטיות: מספר או מחיר שלא בעובדות, הצעה שפגה, דחיפות בלי תאריך אמיתי, קישור זר, מילה אסורה, שפה שגויה → נחסם. ניסיון תיקון אחד, ואם לא — נזרק |
-| בקרה אנושית | מדיניות לכל ארגון: הכול לאישור / חימום + דגימה של X% / אוטומטי. בדיקה נוספת ברגע השליחה |
-| זיכרון ניסוחים | עריכות (לפני→אחרי), דחיות עם סיבה וחוקים קבועים ("אף פעם לא 'זול'") נכנסים לפרומפט הבא |
-| למידה | **Thompson sampling** בין וריאנטים; מפסיד יוצא רק אחרי מספיק ניסיונות; המנצח הופך לבסיס למתחרים חדשים |
-| מדידה אמיתית | **קבוצת ביקורת (holdout)** למדידת lift, עלות להמרה, הכנסה |
-| תקציב | תקרה חודשית לארגון, תקרת AI ותקציב לקמפיין; כל פעולה נבדקת מראש ונרשמת בספר חשבונות |
-| מפתח AI לכל ארגון | Claude / OpenAI / Gemini; המפתח נשמר מוצפן (AES-256-GCM) וקשור לארגון |
-| **דפי נחיתה** | דף לכל קהל, אירוע או הצעה, עם **A/B testing** (סיכוי להיות הטוב ביותר + פסק דין) וטופס ליד ששואל למה האדם מתעניין |
-| **רשתות חברתיות** | טיוטות ופרסום, ומדריך חיבור צעד-אחר-צעד ל-11 רשתות (Instagram, Facebook, LinkedIn, TikTok, YouTube, Threads, X, Pinterest, Reddit, Google Business, WhatsApp) — כולל פרומפט ש-Claude in Chrome מבצע את השלבים יחד עם המשתמש |
-| צוות | משתמשים ותפקידים (צופה / עורך / מנהל), הזמנות חד-פעמיות, נגישות ובחירת ערכת נושא |
+| Fit to the industry | **8 templates** (kids' app, clinic, e-commerce, B2B, non-profit, real estate, courses, restaurant) with voice, channels and regulatory restrictions |
+| Writing in several languages | The model writes several variants per channel × language, each from a different angle, as structured JSON |
+| Fit to the medium | Rules per channel: email (subject, body, unsubscribe), SMS (GSM/UCS-2 segment counting, opt-out line), WhatsApp (approved template) |
+| **Preventing mistakes** | Deterministic checks: a number or price not in the facts, an expired offer, urgency without a real date, a foreign link, a banned word, the wrong language → blocked. One repair attempt; otherwise discarded |
+| Human control | Per-organisation policy: approve everything / warm-up + X% sampling / automatic. A second check at send time |
+| Wording memory | Edits (before → after), rejections with a reason and fixed rules ("never 'cheap'") go into the next prompt |
+| Learning | **Thompson sampling** between variants; a loser leaves only after enough trials; the winner becomes the base for new challengers |
+| Real measurement | **A holdout group** to measure lift, cost per conversion, revenue |
+| Budget | A monthly cap per organisation, an AI cap and a per-campaign budget; every action is checked up front and recorded in a ledger |
+| An AI key per organisation | Claude / OpenAI / Gemini; the key is stored encrypted (AES-256-GCM) and bound to the organisation |
+| **Landing pages** | A page per audience, event or offer, with **A/B testing** (probability of being best + a verdict) and a lead form that asks why the person is interested |
+| **Social networks** | Drafts and publishing, and a step-by-step connection guide for 11 networks (Instagram, Facebook, LinkedIn, TikTok, YouTube, Threads, X, Pinterest, Reddit, Google Business, WhatsApp) — including a prompt for Claude in Chrome to do the steps with the user |
+| Team | Users and roles (viewer / editor / admin), one-time invites, accessibility and theme choice |
 
-## ארכיטקטורה
+## Architecture
 
 ```mermaid
 flowchart LR
-  F[עובדות, הצעות, חוקים<br/>של הארגון] --> G[Generator — LLM של הארגון]
-  G --> GR[Guardrails<br/>בדיקות דטרמיניסטיות]
-  GR -- חסום --> FIX[ניסיון תיקון אחד] --> GR
-  GR -- עבר --> RV[Review policy<br/>אישור / דגימה / אוטומטי]
-  RV --> MEM[(זיכרון ניסוחים)]
-  RV --> PL[Planner<br/>הסכמה לכל ערוץ · תקציב]
-  PL --> SND[שליחה: Resend · Twilio · WhatsApp<br/>או sandbox]
-  PL --> SOC[רשתות חברתיות]
-  SND --> TR[מעקב: קישורים, המרות חתומות]
-  LP[דפי נחיתה + A/B] --> TR
+  F[Organisation facts,<br/>offers, rules] --> G[Generator — the org's LLM]
+  G --> GR[Guardrails<br/>deterministic checks]
+  GR -- blocked --> FIX[One repair attempt] --> GR
+  GR -- passed --> RV[Review policy<br/>approve / sample / automatic]
+  RV --> MEM[(Wording memory)]
+  RV --> PL[Planner<br/>consent per channel · budget]
+  PL --> SND[Sending: Resend · Twilio · WhatsApp<br/>or sandbox]
+  PL --> SOC[Social networks]
+  SND --> TR[Tracking: links, signed conversions]
+  LP[Landing pages + A/B] --> TR
   TR --> L[Learning — Thompson sampling<br/>+ holdout lift]
   L --> G
   MEM --> G
 ```
 
-## טכנולוגיות
-TypeScript · Next.js 16 · Postgres/Supabase עם **RLS לפי חברות בארגון** ותפקיד DB מוגבל · Vitest (כולל בדיקות על Postgres אמיתי) · Resend · Twilio · Meta WhatsApp Cloud API · Claude / OpenAI / Gemini · pg_cron · Vercel
+## Technologies
+TypeScript · Next.js 16 · Postgres/Supabase with **RLS by organisation membership** and a restricted database role · Vitest (including tests on real Postgres) · Resend · Twilio · Meta WhatsApp Cloud API · Claude / OpenAI / Gemini · pg_cron · Vercel
 
 ## Deployment
-- Vercel, עם פריסה אוטומטית מ-`main` ובדיקת גרסה דרך `/api/health`.
-- pg_cron מפעיל תכנון ושליחה כל 10 דקות.
-- סכמה נפרדת ב-Postgres, והאפליקציה מתחברת כתפקיד מוגבל.
-- ערוץ שלא חובר שולח ל-sandbox — אפשר להריץ קמפיין שלם בלי לשלוח לאף אחד.
+- Vercel, auto-deploying from `main`, with a version check through `/api/health`.
+- pg_cron triggers planning and sending every 10 minutes.
+- A separate Postgres schema; the app connects as a restricted role.
+- A channel that isn't connected sends to a sandbox — a whole campaign can run without messaging anyone.
 
-## הבא בתור (Roadmap)
-1. **צינור לידים:** סטטוסים, ציר זמן של כל נגיעה, משימות מעקב ומסך ליד אחד.
-2. **יומן:** Google ואז Microsoft 365, וקביעת שיחות של 15/30 דקות לפי זמן פנוי.
-3. ממשק באנגלית, וריצות חיות מול ספקים עם מפתחות של ארגון אמיתי.
+## Next up (roadmap)
+1. **Lead pipeline:** statuses, a timeline of every touch, follow-up tasks and one lead screen.
+2. **Calendar:** Google, then Microsoft 365, and booking 15/30-minute calls from free time.
+3. An English UI, and live runs against providers with a real organisation's keys.
 
-## למה זה מעניין
-- **AI עם מעקות:** המודל כותב, אבל קוד דטרמיניסטי מחליט מה מותר לצאת.
-- **אדם בלולאה שמלמד את המערכת:** כל עריכה הופכת לחוק או לדוגמה.
-- **מדידה סטטיסטית אמיתית** במקום "הקמפיין קיבל הרבה קליקים".
+## Why it's interesting
+- **AI with guardrails:** the model writes, but deterministic code decides what may go out.
+- **A human in the loop who teaches the system:** every edit becomes a rule or an example.
+- **Real statistical measurement** instead of "the campaign got lots of clicks".

@@ -1,76 +1,76 @@
-# Chief-of-Staff AI · סוכן אישי לניהול העסק
+# Chief-of-Staff AI — a personal agent for running the business
 
-**🟢 בייצור · שימוש יומיומי מאז יולי 2026**
+**🟢 In production · used daily since July 2026**
 
-סוכן AI שמנהל את "הצד האדמיניסטרטיבי" של עסק ייעוץ ואימון: פגישות, מיילים, יומן, משימות, לידים, קבלות ותוכן. עובד מתוך טלגרם (בוט + Mini App), Share Sheet באייפון, וואטסאפ וקונסולת ניהול ב-PWA.
+An AI agent that handles the administrative side of a consulting and coaching business: meetings, email, calendar, tasks, leads, receipts and content. It works from Telegram (bot + Mini App), the iPhone Share Sheet, WhatsApp and a PWA management console.
 
-<!-- MEDIA: סרטון 60–90 שניות: הודעה קולית בטלגרם → סיכום פגישה → משימות ביומן → ליד ב-CRM -->
+<!-- MEDIA: 60–90 s video: a Telegram voice note → meeting summary → tasks in the calendar → a lead in the CRM -->
 
 | | |
 |---|---|
-| **רכיבים** | מנוע סוכן (n8n) + קונסולת ניהול (Cloudflare Worker) — שני ריפוזיטוריז |
-| **היקף** | ~490 קומיטים · ~410 PRs · 103 קבצי בדיקות · 41 מיגרציות DB · workflow של ~550 צמתים |
-| **סביבות** | DEV ו-PROD נפרדות לגמרי |
+| **Components** | Agent engine (n8n) + management console (Cloudflare Worker) — two repositories |
+| **Scale** | ~490 commits · ~410 PRs · 103 test files · 41 database migrations · a ~550-node workflow |
+| **Environments** | Fully separate DEV and PROD |
 
-## הבעיה
-עצמאית שעובדת עם הרבה לקוחות במקביל, בשלושה "מרחבי עבודה" (אישי, אימון קריירה, ייעוץ ארגוני), מבלה שעות על תיאום, סיכומי פגישות, מעקב לידים, קבלות ומיילים. הכלים קיימים (Gmail, Calendar, Tasks, Drive), אבל אף אחד לא מחבר ביניהם ולא יוזם.
+## The problem
+A solo consultant working with many clients at once, across three "workspaces" (personal, career coaching, organisational consulting), spends hours on scheduling, meeting summaries, lead follow-up, receipts and email. The tools exist (Gmail, Calendar, Tasks, Drive), but nothing connects them and nothing takes initiative.
 
-## מה הסוכן עושה
+## What the agent does
 
-**פגישות ויומן**
-- **סיכום פגישות:** הקלטה → תמלול (Whisper) → סיכום, החלטות ומשימות → הצעות לאישור.
-- **יומן חכם:** זיהוי כפילויות, שיוך כל אירוע למרחב העבודה לפי צבע, "שומר אג'נדה" שמתריע על עומס.
-- **איזון שבועי:** כמה זמן הלך לעבודה מכניסה מול עבודה אחרת, מול יעד.
-- **ציר זמן אחד, כמה עדשות:** כל היום מוצג כרצף אחד ומסונן לפי מרחב.
+**Meetings and calendar**
+- **Meeting summaries:** recording → transcription (Whisper) → summary, decisions and tasks → proposals for approval.
+- **Smart calendar:** duplicate detection, assigning each event to a workspace by colour, an "agenda guard" that warns about overload.
+- **Weekly balance:** how much time went to revenue work versus other work, against a target.
+- **One timeline, several lenses:** the whole day as one sequence, filtered by workspace.
 
-**CRM ולידים**
-- לידים, פעולות ומעקבים, כולל **סנכרון אוטומטי מהמייל**.
-- עדכון CRM בשיחה חופשית בטלגרם.
-- התראות על לידים שלא טופלו ותזכורות מעקב.
+**CRM and leads**
+- Leads, actions and follow-ups, including **automatic sync from email**.
+- Updating the CRM in free conversation on Telegram.
+- Alerts for untouched leads and follow-up reminders.
 
-**משימות**
-- **סיווג משימות שלומד מהבעלים:** למשימה ב-Google Tasks אין צבע או מרחב, אז הסוכן שואל — משימה אחת בכל פעם — ומכליל לחוקים לפי שמות. כשיש יותר משלוש משימות פתוחות, הוא שולח הפניה אחת למסך מיון במקום רצף שאלות.
+**Tasks**
+- **Task classification that learns from the owner:** a Google Task has no colour or workspace, so the agent asks — one task at a time — and generalises into rules based on names. With more than three open tasks, it sends one pointer to a triage screen instead of a stream of questions.
 
-**מיילים, קבלות ותוכן**
-- **סינון רך והעברה חכמה** של מיילים, טיוטות תגובה.
-- **קבלות והוצאות:** צילום בטלגרם, שיתוף מהאייפון או זיהוי במייל → מסמך מסודר עם כפתורי אישור.
-- **מיחזור תוכן:** טקסט או סיכום → טיוטת פוסט בקול של אותו מרחב עבודה.
-- **שאלות על הידע שלי:** חיפוש במסמכי Drive המותרים לאותו מרחב, עם ציטוט המקור.
+**Email, receipts and content**
+- **Soft filtering and smart forwarding** of email, reply drafts.
+- **Receipts and expenses:** a photo on Telegram, a share from the iPhone or detection in email → a tidy document with approval buttons.
+- **Content repurposing:** a text or summary → a post draft in that workspace's voice.
+- **Questions about my own knowledge:** searching the Drive documents allowed for that workspace, citing the source.
 
-**יוזמה (Proactive)** — 19 שרשראות מתוזמנות: חידוש Gmail push, סנכרון CRM, בדיקת בריאות חיבורים, הצעות ליומן, איזון שבועי, שומר שגרה ועוד.
+**Proactive** — 19 scheduled chains: Gmail push renewal, CRM sync, connection health checks, calendar suggestions, weekly balance, routine guard and more.
 
-## אמון ושקיפות — Action Proposal Ledger
-כל פעולה שכותבת החוצה (אירוע ביומן, מייל, עדכון CRM) הופכת קודם ל**הצעה מתועדת**:
-- **12 סוגי פעולות** ממופים ל**רמות סיכון 0–4** (פעולה לא מוכרת → רמה 4, נכשל-בטוח).
-- **מדיניות בגרסאות:** שינוי ברמת סיכון = גרסת מדיניות חדשה, כך שכל הצעה ישנה מתפרשת לפי החוקים שסיווגו אותה.
-- **זיהוי כפילויות סמנטי:** אותה פעולה שהוצעה פעמיים מסומנת.
-- **מסך "שקיפות הסוכן"** בקונסולה: מה הוצע → מה בוצע → מה ממתין → בריאות חיבורים → המדיניות בתוקף.
-- כפתורי טלגרם **רק רלוונטיים להקשר** (לאשר / לערוך / לדחות) — בלי כפתורים גנריים.
+## Trust and transparency — the Action Proposal Ledger
+Every action that writes to the outside world (a calendar event, an email, a CRM update) first becomes a **recorded proposal**:
+- **12 action kinds** mapped to **risk tiers 0–4** (an unknown action → tier 4, fail-safe).
+- **Versioned policy:** changing a risk tier means a new policy version, so every old proposal is read against the rules that classified it.
+- **Semantic duplicate detection:** the same action proposed twice is flagged.
+- **An "agent transparency" screen** in the console: proposed → done → waiting → connection health → policy in force.
+- Telegram buttons are **only the ones relevant to the context** (approve / edit / reject) — no generic buttons.
 
-## ארכיטקטורה
+## Architecture
 
 ```mermaid
 flowchart LR
-  subgraph Channels[ערוצים]
+  subgraph Channels[Channels]
     TG[Telegram bot + Mini App]
     IOS[iOS Share Sheet]
     WA[WhatsApp]
-    PWA[קונסולה / PWA]
+    PWA[Console / PWA]
     GP[Google push: Gmail, Calendar]
-    SCH[19 טריגרים מתוזמנים]
+    SCH[19 scheduled triggers]
   end
-  subgraph Engine[מנוע הסוכן]
-    GEN["מחולל workflow ב-Node.js<br/>+ ~45 מודולי lib עם בדיקות"]
-    N8N["n8n — workflow יחיד, ~550 צמתים"]
+  subgraph Engine[Agent engine]
+    GEN["Workflow generator in Node.js<br/>+ ~45 tested lib modules"]
+    N8N["n8n — one workflow, ~550 nodes"]
     GEN -- build + deploy --> N8N
   end
-  subgraph AI[בינה]
-    GEM[Google Gemini<br/>הבנה · סיווג · Vision · סיכום]
-    WH[Whisper מקומי — תמלול]
+  subgraph AI[AI]
+    GEM[Google Gemini<br/>understanding · classification · vision · summaries]
+    WH[Local Whisper — transcription]
   end
-  subgraph Console[קונסולת ניהול]
-    CW[Cloudflare Worker + React SSR<br/>auth · push · API לסוכן]
-    D1[(Cloudflare D1<br/>CRM · התראות · הצעות · מדיניות · audit)]
+  subgraph Console[Management console]
+    CW[Cloudflare Worker + React SSR<br/>auth · push · API for the agent]
+    D1[(Cloudflare D1<br/>CRM · notifications · proposals · policy · audit)]
   end
   G[Google Calendar / Tasks / Gmail / Drive]
 
@@ -78,48 +78,48 @@ flowchart LR
   PWA --> CW --> N8N
   N8N --> GEM & WH
   N8N --> G
-  N8N -- הצעות + אירועים --> CW --> D1
+  N8N -- proposals + events --> CW --> D1
   CW -- Web Push --> PWA
 ```
 
-### תיקון תקלות עצמאי (Self-healing)
+### Self-healing incident repair
 
 ```mermaid
 flowchart LR
-  E[שגיאה ב-workflow] --> M[Error monitor<br/>פותח אירוע]
+  E[Workflow error] --> M[Error monitor<br/>opens an incident]
   M --> GH[GitHub Action<br/>Claude Code]
-  GH --> A[ניתוח שורש] --> T[תיקון + בדיקות] --> D[פריסה ל-DEV ואז PROD]
-  D --> R[תיעוד בקונסולה<br/>root cause + תיקון מאומת]
-  D --> N[הודעה בטלגרם]
+  GH --> A[Root-cause analysis] --> T[Fix + tests] --> D[Deploy to DEV, then PROD]
+  D --> R[Logged in the console<br/>root cause + verified fix]
+  D --> N[Telegram message]
 ```
-הצנרת רצה על מנוי Claude (טוקן OAuth) ולא על API בתשלום לפי שימוש — אין עלות משתנה לכל תיקון.
+The pipeline runs on a Claude subscription (OAuth token) rather than a pay-per-use API key, so a fix has no variable cost.
 
-## טכנולוגיות
-| שכבה | טכנולוגיה |
+## Technologies
+| Layer | Technology |
 |---|---|
-| אורקסטרציה | n8n ב-Docker Compose; ה-workflow נוצר מקוד JS ולא נערך ידנית בממשק |
-| AI | Google Gemini (Flash / Flash-Lite), Whisper בקונטיינר, Claude Code ל-self-healing |
-| קונסולה | Cloudflare Workers, React 19 SSR, Cloudflare D1 (SQLite), Web Push, PWA |
-| אינטגרציות | Telegram Bot API, Gmail, Google Calendar, Tasks, Drive, WhatsApp |
-| DevOps | GitHub Actions, Claude Code Action, סקריפטי פריסה עם אימות |
-| בדיקות | Node test runner, בדיקות SQLite ל-D1, בדיקות "drift" בין הסוכן לקונסולה |
+| Orchestration | n8n on Docker Compose; the workflow is generated from JS code, not edited by hand in the UI |
+| AI | Google Gemini (Flash / Flash-Lite), Whisper in a container, Claude Code for self-healing |
+| Console | Cloudflare Workers, React 19 SSR, Cloudflare D1 (SQLite), Web Push, PWA |
+| Integrations | Telegram Bot API, Gmail, Google Calendar, Tasks, Drive, WhatsApp |
+| DevOps | GitHub Actions, Claude Code Action, deploy scripts with verification |
+| Testing | Node test runner, SQLite tests for D1, "drift" tests between the agent and the console |
 
 ## Deployment
-- **שתי סביבות** (DEV / PROD), כל אחת עם דומיין, טוקנים, מסד נתונים ו-workflow משלה.
-- n8n רץ ב-Docker Compose על שרת ענן מאחורי Cloudflare; **הסודות הוצאו מה-workflow** למשתני סביבה, והייצוא החי מכיל אפס סודות.
-- הקונסולה מוגנת ו**נכשלת-סגור** אם הסודות חסרים. הדפדפן מקבל רק תמונות-מצב מנוקות — אף פעם לא טוקנים, תוכן מיילים או היסטוריית צ'אט.
-- פריסת הסוכן: push → restart → אימות שהטריגרים חזרו לפעול. פריסת הקונסולה: מיגרציות קודם, אחר כך הקוד, ואז בדיקה שהשירות מחובר למסד הנכון.
-- **פרופיל "קבלות בלבד":** משתנה אחד מכבה את כל הסוכן חוץ מצנרת הקבלות — בלי למחוק כלום.
+- **Two environments** (DEV / PROD), each with its own domain, tokens, database and workflow.
+- n8n runs on Docker Compose on a cloud server behind Cloudflare; **secrets were moved out of the workflow** into environment variables, and the live export contains zero secrets.
+- The console is protected and **fails closed** if its secrets are missing. The browser only receives sanitised snapshots — never tokens, email content or chat history.
+- Agent deploy: push → restart → verify the triggers are running again. Console deploy: migrations first, then the code, then a check that the service is bound to the right database.
+- **A "receipts-only" profile:** one variable switches off everything except the receipt pipeline — without deleting anything.
 
-## אתגרים ופתרונות (חומר לראיון)
-- **"פריסה שקטה שהורגת טריגרים":** עדכון workflow דרך ה-API מדווח הצלחה, אבל לא מפעיל מחדש טריגרים מתוזמנים. הפתרון: פריסה שתמיד כוללת restart ובדיקת זמן העלייה.
-- **"מסך ריק שנראה תקין":** פריסה ידנית חיברה את הייצור למסד של סביבת הפיתוח, והמסכים פשוט היו ריקים בלי שגיאה. הפתרון: אימות חיבור אוטומטי בסוף כל פריסה.
-- **הרשאות Google שפגו כל 7 ימים:** התברר שזה מצב "Testing" של מסך ההסכמה. הפתרון: מעבר לייצור וחידוש ההסכמה לכל חיבור.
-- **כשלים שקטים:** מיפוי מספרי של כל הצמתים שבולעים שגיאות, סיווג ידני, וניטור שפותח אירוע.
-- **שני ריפוזיטוריז שחייבים להסכים:** בדיקות drift שנכשלות אם הסיווג, צבעי האיזון או מדיניות הסיכון בסוכן ובקונסולה מתפצלים.
-- **תיעוד לפני שינוי:** מלאי מערכת, מפת זרימת מידע, מודל איום ובסיס עלויות — לפני כל שינוי מבני.
+## Challenges and solutions (interview material)
+- **"A silent deploy that kills triggers":** updating the workflow through the API reports success but doesn't re-arm scheduled triggers. Fix: every deploy includes a restart and a check of the container start time.
+- **"An empty screen that looks fine":** a manual deploy bound production to the development database, and screens were simply empty with no error. Fix: an automatic binding check at the end of every deploy.
+- **Google permissions expiring every 7 days:** the consent screen was in "Testing" status. Fix: moving it to production and re-consenting every connection.
+- **Silent failures:** counting every node that swallows errors, classifying them by hand, and monitoring that opens an incident.
+- **Two repositories that must agree:** drift tests fail if the classifier, balance colours or risk policy diverge between the agent and the console.
+- **Document before changing:** a system inventory, data-flow map, threat model and cost baseline before any structural change.
 
-## מדיה להוסיף
-- [ ] צילום קונסולה: היום, CRM, שקיפות הסוכן — **עם נתוני דמו**
-- [ ] GIF של שיחה בטלגרם עם כפתורי אישור
-- [ ] צילום של דף "אירוע ותיקון"
+## Media to add
+- [ ] Console screenshots: today, CRM, agent transparency — **with demo data**
+- [ ] GIF of a Telegram conversation with approval buttons
+- [ ] Screenshot of an "incident and fix" page
